@@ -88,6 +88,7 @@
           <Property Name="IDLogin" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsEmploee" Type="bit" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -626,6 +627,7 @@
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Client" Relationship="Self.FK_Client_Login" FromRole="Login" ToRole="Client" />
           <NavigationProperty Name="Emploee" Relationship="Self.FK_Emploee_Login" FromRole="Login" ToRole="Emploee" />
+          <Property Name="IsEmploee" Type="Boolean" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -1122,6 +1124,7 @@
           <EntitySetMapping Name="Login">
             <EntityTypeMapping TypeName="CoffeeHouseModel.Login">
               <MappingFragment StoreEntitySet="Login">
+                <ScalarProperty Name="IsEmploee" ColumnName="IsEmploee" />
                 <ScalarProperty Name="IDLogin" ColumnName="IDLogin" />
                 <ScalarProperty Name="Login1" ColumnName="Login" />
                 <ScalarProperty Name="Password" ColumnName="Password" />

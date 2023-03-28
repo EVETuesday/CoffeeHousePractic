@@ -9,9 +9,6 @@
       Title="AddProductPage">
 
     <Grid>
-        <Grid.Background>
-            <ImageBrush ImageSource="C:\Users\EVE\source\repos\CoffeeHouse\CoffeeHouse\Resourses\Images\JpgFormat\1614414667_11-p-chashka-kofe-na-temnom-fone-17.jpg"/>
-        </Grid.Background>
         <StackPanel Orientation="Vertical" 
                     Margin="40 0 40 0 " >
 
@@ -19,7 +16,7 @@
             <TextBlock Text="Добавление товара" 
                        FontSize="30" 
                        TextAlignment="Center" 
-                       Foreground="Black"/>
+                       Foreground="White"/>
 
             <Border BorderBrush="Gray"
                     BorderThickness="1"

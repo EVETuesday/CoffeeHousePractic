@@ -24,6 +24,7 @@ namespace CoffeeHouse.DataBase
         public int IDLogin { get; set; }
         public string Login1 { get; set; }
         public string Password { get; set; }
+        public Nullable<bool> IsEmploee { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Client> Client { get; set; }

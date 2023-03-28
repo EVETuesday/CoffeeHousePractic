@@ -358,6 +358,8 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resourses\Images\JpgFormat\55c01836d80d0a04eea66db870c874c5--quiet-revolution-wallpapers-ipad.jpg" />
+    <Resource Include="Resourses\Images\PngFormat\a5d152a89457eaf0d0f056d1152980a9.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,5 +1,7 @@
 ﻿using CoffeeHouse.Pages.CommonPages;
 using CoffeeHouse.Pages.DirectorPages;
+using CoffeeHouse.Pagess.DirectorPages;
+using CoffeeHouse.Windows.CommonWindows;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,10 +23,27 @@ namespace CoffeeHouse.Windows.Director
     /// </summary>
     public partial class DefaultDirectorWindow : Window
     {
-        public DefaultDirectorWindow()
+        public DefaultDirectorWindow(AddProductPage addProductPage)
         {
             InitializeComponent();
-            DirectorFrame.Content = new AddProductPage();
+            DirectorFrame.Content = addProductPage;
+        }
+        public DefaultDirectorWindow(ChangeProductPage changeProductPage)
+        {
+            InitializeComponent();
+            DirectorFrame.Content = changeProductPage;
+        }
+        public DefaultDirectorWindow(RemoveProductPage removeProductPage)
+        {
+            InitializeComponent();
+            DirectorFrame.Content = removeProductPage;
+        }
+
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            MainChoiseWindow mainChoiseWindow = new MainChoiseWindow();
+            mainChoiseWindow.Show();
+            Close();
         }
     }
 }

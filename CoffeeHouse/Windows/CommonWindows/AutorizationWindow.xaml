@@ -111,7 +111,7 @@
             <Button Style="{DynamicResource ButtonStyleRedius}"
                     x:Name="BtnGo"
                     Height="50"
-                    Margin="30 100 30 0"
+                    Margin="30 50 30 0"
                     Background="Black"
                     Content="Войти"
                     FontSize="20"
@@ -129,7 +129,7 @@
                    HorizontalContentAlignment="Center"
                     BorderThickness="1"
                     BorderBrush="White"
-                   Margin="0 140"
+                   Margin="0 30"
                    Style="{DynamicResource ButtonStyleRedius}" Click="BtnToReg_Click"
                    />
 

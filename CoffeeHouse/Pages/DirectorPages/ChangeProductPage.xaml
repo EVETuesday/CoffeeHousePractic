@@ -5,10 +5,28 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CoffeeHouse.Pagess.DirectorPages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="700" d:DesignWidth="400"
       Title="ChangeProductPage">
 
     <Grid>
+        <StackPanel>
+            <DataGrid x:Name="DgListOfProduct"
+                  Margin=" 10 10 10 0"
+                      Height="300"
+                      AutoGenerateColumns="False"
+                      FontSize="8" SelectionChanged="DgListOfProduct_SelectionChanged">
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Наименование товара" Binding="{Binding Title}"/>
+                    <DataGridTextColumn Header="Цена" Binding="{Binding Price}"/>
+                    <DataGridTextColumn Header="Категория товара" Binding="{Binding Category.Title}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Image x:Name="ImImage"
+                   Margin="100 50 100 0"
+                   Height="200"
+                   Source="/Resourses/Images/JpgFormat/bio_no_image.jpg"/>
+        </StackPanel>
         
     </Grid>
 </Page>

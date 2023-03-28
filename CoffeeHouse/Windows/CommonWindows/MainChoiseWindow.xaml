@@ -10,5 +10,59 @@
         WindowStartupLocation="CenterScreen"
         Title="MainChoiseWindow" Height="700" Width="400">
     <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Resourses/Images/PngFormat/a5d152a89457eaf0d0f056d1152980a9.png"/>
+        </Grid.Background>
+
+
+        <StackPanel Margin="60 50 60 0">
+
+
+
+
+
+            <Button Style="{DynamicResource ButtonStyleRedius}"
+                    x:Name="BtnAddProduct"
+                    Height="50"
+                    Margin="30 30 30 0"
+                    Background="Black"
+                    Content="Добавить новый товар"
+                    FontSize="15"
+                    Foreground="White"
+                    FontWeight="Bold"
+                    BorderThickness="1"
+                    BorderBrush="White"
+                    
+                    Click="BtnClick"/>
+
+            <Button Style="{DynamicResource ButtonStyleRedius}"
+                    x:Name="BtnChangeProduct"
+                    Height="50"
+                    Margin="30 30 30 0"
+                    Background="Black"
+                    Content="Изменить товар"
+                    FontSize="15"
+                    Foreground="White"
+                    FontWeight="Bold"
+                    BorderThickness="1"
+                    BorderBrush="White"
+                    Click="BtnClick"/>
+
+            <Button Style="{DynamicResource ButtonStyleRedius}"
+                    x:Name="BtnDellProduct"
+                    Height="50"
+                    Margin="30 30 30 0"
+                    Background="Black"
+                    Content="Удалить товар"
+                    FontSize="15"
+                    Foreground="White"
+                    FontWeight="Bold"
+                    BorderThickness="1"
+                    BorderBrush="White"
+                    Click="BtnClick"/>
+        </StackPanel>
+
+
+
     </Grid>
 </Window>

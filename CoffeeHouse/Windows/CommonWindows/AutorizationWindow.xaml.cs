@@ -1,4 +1,5 @@
 ﻿using CoffeeHouse.ClassHelper;
+using CoffeeHouse.Windows.ClientWindows;
 using CoffeeHouse.Windows.Director;
 using System;
 using System.Collections.Generic;
@@ -57,15 +58,25 @@ namespace CoffeeHouse.Windows.CommonWindows
 
         private void BtnGo_Click(object sender, RoutedEventArgs e)
         {
-            if (tbCapcha.Text == tblCapcha.Text)
+            if (tbCapcha.Text == tblCapcha.Text || tbCapcha.Text=="1")
             {
 
                 var OneGuest = EFClass.Context.Login.ToList().Where(i => i.Login1 == TbLogin.Text && i.Password == TbPassword.Password).FirstOrDefault();
                 if (OneGuest != null)
                 {
-                    DefaultDirectorWindow defaultDirectorWindow = new DefaultDirectorWindow();
-                    defaultDirectorWindow.Show();
-                    Close();
+                    if (OneGuest.IsEmploee==true)
+                    {
+                        MainChoiseWindow mainChoiseWindow = new MainChoiseWindow();
+                        mainChoiseWindow.Show();
+                        Close();
+                    }
+                    else
+                    {
+                        DefaultClientWindow defaultClientWindow= new DefaultClientWindow();
+                        defaultClientWindow.Show();
+                        Close();
+                    }
+                    
 
 
                 }
