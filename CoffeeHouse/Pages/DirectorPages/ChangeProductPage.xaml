@@ -14,18 +14,49 @@
                   Margin=" 10 10 10 0"
                       Height="300"
                       AutoGenerateColumns="False"
-                      FontSize="8" SelectionChanged="DgListOfProduct_SelectionChanged">
+                      FontSize="8"
+                      SelectedIndex="0"
+                      SelectionChanged="DgListOfProduct_SelectionChanged">
 
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Наименование товара" Binding="{Binding Title}"/>
                     <DataGridTextColumn Header="Цена" Binding="{Binding Price}"/>
-                    <DataGridTextColumn Header="Категория товара" Binding="{Binding Category.Title}"/>
+                    <DataGridTextColumn Header="Срок годности" Binding="{Binding ExpirationDate}"/>
                 </DataGrid.Columns>
             </DataGrid>
-            <Image x:Name="ImImage"
-                   Margin="100 50 100 0"
-                   Height="200"
+            <StackPanel Orientation="Horizontal"
+                        Margin="10">
+                <StackPanel HorizontalAlignment="Left"
+                            Width="180">
+                    <Image x:Name="ImImage"
+                   Margin="10 10 0 0"
+                   Height="170"
                    Source="/Resourses/Images/JpgFormat/bio_no_image.jpg"/>
+
+                    <Button x:Name="BtnChooseImage" 
+                    Content="Выбрать фото"
+                    Height="40"
+                    Margin="10 10 0 0"
+                    Click="BtnChooseImage_Click"/>
+                </StackPanel>
+                <StackPanel
+                    HorizontalAlignment="Right"
+                    Margin="20 0 0 0"
+                            Width="180">
+                    <TextBlock Text="Категория товара"
+                               Background="White"
+                               Margin="0 90 0 0"
+                               FontSize="10"
+                               TextAlignment="Left"/>
+                    <ComboBox x:Name="cmbCategory"
+                        Margin="0 10 0 0"/>
+                </StackPanel>
+                
+            </StackPanel>
+            <Button x:Name="btnSave"
+                    Margin="30 30 30 0"
+                    Height="40"
+                    Content="Сохранить изменения в выбраном продукте" Click="btnSave_Click"/>
         </StackPanel>
         
     </Grid>
