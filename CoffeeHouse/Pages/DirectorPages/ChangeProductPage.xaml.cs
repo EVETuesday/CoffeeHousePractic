@@ -37,10 +37,11 @@ namespace CoffeeHouse.Pagess.DirectorPages
         void GetProductList()
         {
             DgListOfProduct.ItemsSource = Context.Product.ToList();
+            DgListOfProduct.SelectedIndex = 0;         
 
 
             cmbCategory.ItemsSource = EFClass.Context.Category.ToList();
-            cmbCategory.SelectedIndex = 0;
+            cmbCategory.SelectedItem = 0;
             cmbCategory.DisplayMemberPath = "Title";
 
             product22 = DgListOfProduct.SelectedItem as Product;
@@ -125,7 +126,7 @@ namespace CoffeeHouse.Pagess.DirectorPages
                 {
                     MessageBox.Show("Ошибка, Изменения не сохранены");
                 }
-                
+                GetProductList();
                 
             }
         }

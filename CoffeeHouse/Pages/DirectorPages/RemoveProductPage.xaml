@@ -5,10 +5,43 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CoffeeHouse.Pages.DirectorPages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="700" d:DesignWidth="400"
       Title="RemoveProductPage">
 
     <Grid>
-        
+        <StackPanel>
+            <DataGrid x:Name="DgListOfProduct"
+                  Margin=" 10 10 10 0"
+                      Height="440"
+                      AutoGenerateColumns="False"
+                      FontSize="8"
+                      SelectedIndex="0"
+                      SelectionChanged="DgListOfProduct_SelectionChanged"
+                      >
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Наименование товара" Binding="{Binding Title}"/>
+                    <DataGridTextColumn Header="Цена" Binding="{Binding Price}"/>
+                    <DataGridTextColumn Header="Срок годности" Binding="{Binding ExpirationDate}"/>
+                    <DataGridTextColumn Header="Категория" Binding="{Binding Category.Title}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <StackPanel
+                        Orientation="Horizontal">
+                <Image x:Name="ImImage"
+                   Margin="10 10 0 0"
+                   Height="170"
+                   Source="/Resourses/Images/JpgFormat/bio_no_image.jpg"/>
+                
+                <Button x:Name="btnRemove"
+                    Height="50"
+                        Width="200"
+                        Margin="10"
+                        Content="Удалить товар"
+                        HorizontalContentAlignment="Left"
+                        Padding="20 0 0 0"
+                        Background="White" Click="btnRemove_Click"/>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </Page>

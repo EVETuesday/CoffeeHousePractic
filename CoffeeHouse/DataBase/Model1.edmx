@@ -118,6 +118,7 @@
           </Key>
           <Property Name="IDSupply" Type="int" Nullable="false" />
           <Property Name="IDProduct" Type="int" Nullable="false" />
+          <Property Name="q" Type="int" />
         </EntityType>
         <EntityType Name="Supplier">
           <Key>
