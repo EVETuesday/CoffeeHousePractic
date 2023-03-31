@@ -118,7 +118,6 @@
           </Key>
           <Property Name="IDSupply" Type="int" Nullable="false" />
           <Property Name="IDProduct" Type="int" Nullable="false" />
-          <Property Name="q" Type="int" />
         </EntityType>
         <EntityType Name="Supplier">
           <Key>
@@ -626,9 +625,9 @@
           <Property Name="IDLogin" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Login1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsEmploee" Type="Boolean" />
           <NavigationProperty Name="Client" Relationship="Self.FK_Client_Login" FromRole="Login" ToRole="Client" />
           <NavigationProperty Name="Emploee" Relationship="Self.FK_Emploee_Login" FromRole="Login" ToRole="Emploee" />
-          <Property Name="IsEmploee" Type="Boolean" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -640,10 +639,10 @@
           <Property Name="Price" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="Count" Type="Int32" Nullable="false" />
           <Property Name="ExpirationDate" Type="Int32" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="Category" Relationship="Self.FK_Product_Category" FromRole="Product" ToRole="Category" />
           <NavigationProperty Name="ProductList" Relationship="Self.FK_ProductList_Product" FromRole="Product" ToRole="ProductList" />
-          <NavigationProperty Name="Supply" Relationship="Self.ProductSupply" FromRole="Product" ToRole="Supply" />
-          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="ProductSupply" Relationship="Self.FK_ProductSupply_Product" FromRole="Product" ToRole="ProductSupply" />
         </EntityType>
         <EntityType Name="ProductList">
           <Key>
@@ -655,6 +654,16 @@
           <Property Name="Quantity" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Check" Relationship="Self.FK_ProductList_Check" FromRole="ProductList" ToRole="Check" />
           <NavigationProperty Name="Product" Relationship="Self.FK_ProductList_Product" FromRole="ProductList" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="ProductSupply">
+          <Key>
+            <PropertyRef Name="IDSupply" />
+            <PropertyRef Name="IDProduct" />
+          </Key>
+          <Property Name="IDSupply" Type="Int32" Nullable="false" />
+          <Property Name="IDProduct" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_ProductSupply_Product" FromRole="ProductSupply" ToRole="Product" />
+          <NavigationProperty Name="Supply" Relationship="Self.FK_ProductSupply_Supply" FromRole="ProductSupply" ToRole="Supply" />
         </EntityType>
         <EntityType Name="Supplier">
           <Key>
@@ -674,8 +683,8 @@
           <Property Name="Quantity" Type="Int32" Nullable="false" />
           <Property Name="IDSupplier" Type="Int32" Nullable="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="ProductSupply" Relationship="Self.FK_ProductSupply_Supply" FromRole="Supply" ToRole="ProductSupply" />
           <NavigationProperty Name="Supplier" Relationship="Self.FK_Supply_Supplier" FromRole="Supply" ToRole="Supplier" />
-          <NavigationProperty Name="Product" Relationship="Self.ProductSupply" FromRole="Supply" ToRole="Product" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -902,6 +911,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ProductSupply_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="ProductSupply" Type="Self.ProductSupply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="IDProduct" />
+            </Principal>
+            <Dependent Role="ProductSupply">
+              <PropertyRef Name="IDProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductSupply_Supply">
+          <End Role="Supply" Type="Self.Supply" Multiplicity="1" />
+          <End Role="ProductSupply" Type="Self.ProductSupply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supply">
+              <PropertyRef Name="IDSupply" />
+            </Principal>
+            <Dependent Role="ProductSupply">
+              <PropertyRef Name="IDSupply" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Supply_Supplier">
           <End Role="Supplier" Type="Self.Supplier" Multiplicity="1" />
           <End Role="Supply" Type="Self.Supply" Multiplicity="*" />
@@ -914,11 +947,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="ProductSupply">
-          <End Role="Product" Type="Self.Product" Multiplicity="*" />
-          <End Role="Supply" Type="Self.Supply" Multiplicity="*" />
-        </Association>
-        <EntityContainer Name="Entities4" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="Entities5" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Category" EntityType="Self.Category" />
           <EntitySet Name="Check" EntityType="Self.Check" />
           <EntitySet Name="Client" EntityType="Self.Client" />
@@ -928,6 +957,7 @@
           <EntitySet Name="Login" EntityType="Self.Login" />
           <EntitySet Name="Product" EntityType="Self.Product" />
           <EntitySet Name="ProductList" EntityType="Self.ProductList" />
+          <EntitySet Name="ProductSupply" EntityType="Self.ProductSupply" />
           <EntitySet Name="Supplier" EntityType="Self.Supplier" />
           <EntitySet Name="Supply" EntityType="Self.Supply" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
@@ -978,12 +1008,16 @@
             <End Role="Product" EntitySet="Product" />
             <End Role="ProductList" EntitySet="ProductList" />
           </AssociationSet>
+          <AssociationSet Name="FK_ProductSupply_Product" Association="Self.FK_ProductSupply_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ProductSupply" EntitySet="ProductSupply" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductSupply_Supply" Association="Self.FK_ProductSupply_Supply">
+            <End Role="Supply" EntitySet="Supply" />
+            <End Role="ProductSupply" EntitySet="ProductSupply" />
+          </AssociationSet>
           <AssociationSet Name="FK_Supply_Supplier" Association="Self.FK_Supply_Supplier">
             <End Role="Supplier" EntitySet="Supplier" />
-            <End Role="Supply" EntitySet="Supply" />
-          </AssociationSet>
-          <AssociationSet Name="ProductSupply" Association="Self.ProductSupply">
-            <End Role="Product" EntitySet="Product" />
             <End Role="Supply" EntitySet="Supply" />
           </AssociationSet>
           <FunctionImport Name="PR_AVGPriceProduct" />
@@ -1037,6 +1071,7 @@
           <Property Type="Decimal" Name="Price" Nullable="false" Precision="10" Scale="2" />
           <Property Type="Int32" Name="Count" Nullable="false" />
           <Property Type="Int32" Name="ExpirationDate" Nullable="true" />
+          <Property Type="Binary" Name="Image" Nullable="true" />
         </ComplexType>
         <ComplexType Name="PR_MinAVGStuff_Result">
           <Property Type="Int32" Name="IDProduct" Nullable="false" />
@@ -1045,6 +1080,7 @@
           <Property Type="Decimal" Name="Price" Nullable="false" Precision="10" Scale="2" />
           <Property Type="Int32" Name="Count" Nullable="false" />
           <Property Type="Int32" Name="ExpirationDate" Nullable="true" />
+          <Property Type="Binary" Name="Image" Nullable="true" />
         </ComplexType>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -1062,7 +1098,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище CoffeeHouseModelContainer" CdmEntityContainer="Entities4">
+        <EntityContainerMapping StorageEntityContainer="Хранилище CoffeeHouseModelContainer" CdmEntityContainer="Entities5">
           <EntitySetMapping Name="Category">
             <EntityTypeMapping TypeName="CoffeeHouseModel.Category">
               <MappingFragment StoreEntitySet="Category">
@@ -1125,23 +1161,23 @@
           <EntitySetMapping Name="Login">
             <EntityTypeMapping TypeName="CoffeeHouseModel.Login">
               <MappingFragment StoreEntitySet="Login">
-                <ScalarProperty Name="IsEmploee" ColumnName="IsEmploee" />
                 <ScalarProperty Name="IDLogin" ColumnName="IDLogin" />
                 <ScalarProperty Name="Login1" ColumnName="Login" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="IsEmploee" ColumnName="IsEmploee" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Product">
             <EntityTypeMapping TypeName="CoffeeHouseModel.Product">
               <MappingFragment StoreEntitySet="Product">
-                <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="IDProduct" ColumnName="IDProduct" />
                 <ScalarProperty Name="IDCategory" ColumnName="IDCategory" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="Count" ColumnName="Count" />
                 <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1152,6 +1188,14 @@
                 <ScalarProperty Name="IDProduct" ColumnName="IDProduct" />
                 <ScalarProperty Name="IDCheck" ColumnName="IDCheck" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductSupply">
+            <EntityTypeMapping TypeName="CoffeeHouseModel.ProductSupply">
+              <MappingFragment StoreEntitySet="ProductSupply">
+                <ScalarProperty Name="IDSupply" ColumnName="IDSupply" />
+                <ScalarProperty Name="IDProduct" ColumnName="IDProduct" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1264,14 +1308,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="ProductSupply" TypeName="CoffeeHouseModel.ProductSupply" StoreEntitySet="ProductSupply">
-            <EndProperty Name="Product">
-              <ScalarProperty Name="IDProduct" ColumnName="IDProduct" />
-            </EndProperty>
-            <EndProperty Name="Supply">
-              <ScalarProperty Name="IDSupply" ColumnName="IDSupply" />
-            </EndProperty>
-          </AssociationSetMapping>
           <FunctionImportMapping FunctionImportName="PR_AVGPriceProduct" FunctionName="Хранилище CoffeeHouseModel.PR_AVGPriceProduct" />
           <FunctionImportMapping FunctionImportName="PR_getStuffExpirationDate" FunctionName="Хранилище CoffeeHouseModel.PR_getStuffExpirationDate">
             <ResultMapping>
@@ -1291,6 +1327,7 @@
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="Count" ColumnName="Count" />
                 <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -1303,6 +1340,7 @@
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="Count" ColumnName="Count" />
                 <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

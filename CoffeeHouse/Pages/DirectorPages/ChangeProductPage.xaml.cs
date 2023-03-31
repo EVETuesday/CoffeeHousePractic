@@ -37,11 +37,26 @@ namespace CoffeeHouse.Pagess.DirectorPages
         void GetProductList()
         {
             DgListOfProduct.ItemsSource = Context.Product.ToList();
-            DgListOfProduct.SelectedIndex = 0;         
+            DgListOfProduct.SelectedIndex = 0;
 
+            Product product = DgListOfProduct.SelectedItem as Product; 
 
             cmbCategory.ItemsSource = EFClass.Context.Category.ToList();
-            cmbCategory.SelectedItem = 0;
+            cmbCategory.SelectedItem = EFClass.Context.Category.ToList().Where(i=>i.IDCategory==product.IDCategory);
+            cmbCategory.DisplayMemberPath = "Title";
+
+            product22 = DgListOfProduct.SelectedItem as Product;
+        }
+
+        void GetProductList(string word)
+        {
+            DgListOfProduct.ItemsSource = Context.Product.ToList().Where(i=>i.Title.ToLower().Contains(word.ToLower()) || i.Price.ToString().Contains(word.ToLower()));
+            DgListOfProduct.SelectedIndex = 0;
+
+            Product product = DgListOfProduct.SelectedItem as Product;
+
+            cmbCategory.ItemsSource = EFClass.Context.Category.ToList();
+            cmbCategory.SelectedItem = EFClass.Context.Category.ToList().Where(i => i.IDCategory == product.IDCategory);
             cmbCategory.DisplayMemberPath = "Title";
 
             product22 = DgListOfProduct.SelectedItem as Product;
@@ -107,6 +122,15 @@ namespace CoffeeHouse.Pagess.DirectorPages
                 product2.Title = product.Title;
                 product2.Price = product.Price;
                 product2.IDCategory = cmbCategory.SelectedIndex+1;
+                if (product.ExpirationDate!=0)
+                {
+                    product2.ExpirationDate = product.ExpirationDate;
+                }
+                else if (product.ExpirationDate == 0)
+                {
+                    product2.ExpirationDate = null;
+                }
+                
                 if (pathPhoto != null)
                 {
                     product.Image = File.ReadAllBytes(pathPhoto);
@@ -129,6 +153,11 @@ namespace CoffeeHouse.Pagess.DirectorPages
                 GetProductList();
                 
             }
+        }
+
+        private void TbSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            GetProductList(TbSearch.Text);
         }
     }
 }

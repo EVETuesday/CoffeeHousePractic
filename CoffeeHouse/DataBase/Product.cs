@@ -18,7 +18,7 @@ namespace CoffeeHouse.DataBase
         public Product()
         {
             this.ProductList = new HashSet<ProductList>();
-            this.Supply = new HashSet<Supply>();
+            this.ProductSupply = new HashSet<ProductSupply>();
         }
     
         public int IDProduct { get; set; }
@@ -33,6 +33,6 @@ namespace CoffeeHouse.DataBase
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductList> ProductList { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Supply> Supply { get; set; }
+        public virtual ICollection<ProductSupply> ProductSupply { get; set; }
     }
 }

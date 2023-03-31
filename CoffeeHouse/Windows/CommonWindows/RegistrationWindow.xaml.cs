@@ -23,7 +23,7 @@ namespace CoffeeHouse.Windows.CommonWindows
         public RegistrationWindow()
         {
             InitializeComponent();
-            FrameRegistration.Content= new AddClientPage();
+            FrameRegistration.Content= new AddClientPage(this);
         }
     }
 }

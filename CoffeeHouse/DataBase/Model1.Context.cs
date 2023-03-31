@@ -15,10 +15,10 @@ namespace CoffeeHouse.DataBase
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class Entities4 : DbContext
+    public partial class Entities5 : DbContext
     {
-        public Entities4()
-            : base("name=Entities4")
+        public Entities5()
+            : base("name=Entities5")
         {
         }
     
@@ -36,6 +36,7 @@ namespace CoffeeHouse.DataBase
         public virtual DbSet<Login> Login { get; set; }
         public virtual DbSet<Product> Product { get; set; }
         public virtual DbSet<ProductList> ProductList { get; set; }
+        public virtual DbSet<ProductSupply> ProductSupply { get; set; }
         public virtual DbSet<Supplier> Supplier { get; set; }
         public virtual DbSet<Supply> Supply { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }

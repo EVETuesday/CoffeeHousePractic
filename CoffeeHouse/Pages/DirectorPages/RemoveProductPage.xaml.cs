@@ -70,6 +70,8 @@ namespace CoffeeHouse.Pages.DirectorPages
         {
             Product product = DgListOfProduct.SelectedItem as Product;
             ProductList productList = EFClass.Context.ProductList.ToList().Where(i=>i.IDProduct==product.IDProduct).FirstOrDefault();
+            ProductSupply productSupply = EFClass.Context.ProductSupply.ToList().Where(i=>i.IDProduct==product.IDProduct).FirstOrDefault();
+            
             if (product != null)
             {
 
@@ -79,7 +81,12 @@ namespace CoffeeHouse.Pages.DirectorPages
                     {
                         EFClass.Context.ProductList.Remove(productList);
                     }
-                    catch { }                    
+                    catch { }
+                    try
+                    {
+                        EFClass.Context.ProductSupply.Remove(productSupply);
+                    }
+                    catch { }
                     EFClass.Context.Product.Remove(product);
                     EFClass.Context.SaveChanges();
                     MessageBox.Show("Товар удалён");

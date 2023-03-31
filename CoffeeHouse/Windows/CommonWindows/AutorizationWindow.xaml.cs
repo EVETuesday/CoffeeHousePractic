@@ -72,8 +72,8 @@ namespace CoffeeHouse.Windows.CommonWindows
                     }
                     else
                     {
-                        DefaultClientWindow defaultClientWindow= new DefaultClientWindow();
-                        defaultClientWindow.Show();
+                        ProductListWindow productListWindow = new ProductListWindow();
+                        productListWindow.Show();
                         Close();
                     }
                     

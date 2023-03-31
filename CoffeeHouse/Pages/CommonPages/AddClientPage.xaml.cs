@@ -2,6 +2,7 @@
 using CoffeeHouse.Windows.CommonWindows;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,11 +24,14 @@ namespace CoffeeHouse.Pages.CommonPages
     /// </summary>
     public partial class AddClientPage : Page
     {
+        RegistrationWindow registrationWindow2;
         string tbWord;
         Random rnd = new Random();
-        public AddClientPage()
+        public AddClientPage(RegistrationWindow registrationWindow)
         {
+            
             InitializeComponent();
+            registrationWindow2 = registrationWindow;
             CbGender.SelectedIndex = 0;
             CbGender.ItemsSource=Context.Gender.ToList();
             CbGender.DisplayMemberPath = "Gender1";
@@ -56,6 +60,7 @@ namespace CoffeeHouse.Pages.CommonPages
             DataBase.Login login = new DataBase.Login();
             login.Login1 = TbLogin.Text;
             login.Password= TbPassword.Text;
+            login.IsEmploee = false;
 
             DataBase.Client Client = new DataBase.Client();
             Client.Name = TbName.Text;
@@ -97,6 +102,13 @@ namespace CoffeeHouse.Pages.CommonPages
             {
                 a.Text = tbWord;
             }
+        }
+
+        private void BtnToAuth_Click(object sender, RoutedEventArgs e)
+        {
+            AutorizationWindow autorizationWindow = new AutorizationWindow();
+            autorizationWindow.Show();
+            registrationWindow2.Close();
         }
     }
 }

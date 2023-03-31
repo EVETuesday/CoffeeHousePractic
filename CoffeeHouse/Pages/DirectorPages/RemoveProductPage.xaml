@@ -17,8 +17,9 @@
                       FontSize="8"
                       SelectedIndex="0"
                       SelectionChanged="DgListOfProduct_SelectionChanged"
+                      
                       >
-
+                
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Наименование товара" Binding="{Binding Title}"/>
                     <DataGridTextColumn Header="Цена" Binding="{Binding Price}"/>
@@ -35,12 +36,13 @@
                 
                 <Button x:Name="btnRemove"
                     Height="50"
+                        Style="{DynamicResource ButtonStyleRediusBlack}"
                         Width="200"
                         Margin="10"
                         Content="Удалить товар"
                         HorizontalContentAlignment="Left"
                         Padding="20 0 0 0"
-                        Background="White" Click="btnRemove_Click"/>
+                        Click="btnRemove_Click"/>
             </StackPanel>
         </StackPanel>
     </Grid>

@@ -10,15 +10,14 @@
 namespace CoffeeHouse.DataBase
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class PR_MinAVGStuff_Result
+    public partial class ProductSupply
     {
+        public int IDSupply { get; set; }
         public int IDProduct { get; set; }
-        public int IDCategory { get; set; }
-        public string Title { get; set; }
-        public decimal Price { get; set; }
-        public int Count { get; set; }
-        public Nullable<int> ExpirationDate { get; set; }
-        public byte[] Image { get; set; }
+    
+        public virtual Product Product { get; set; }
+        public virtual Supply Supply { get; set; }
     }
 }

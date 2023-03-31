@@ -26,6 +26,7 @@
             </Border>
 
             <Button x:Name="BtnChooseImage" 
+                    Style="{DynamicResource ButtonStyleRediusBlack}"
                     Content="Выбрать фото"
                     Width="200"
                     Height="40"
@@ -43,7 +44,8 @@
                      Height="30"
                      FontSize="20"
                      TextAlignment="Left"
-                     Foreground="Black"/>
+                     Foreground="White"
+                     Background="Black"/>
             <TextBlock
                 Height="30"
                 FontSize="20"
@@ -57,7 +59,8 @@
                 x:Name="TbPrice"
                 Height="30"
                 FontSize="20"
-                Foreground="Black"/>
+                Foreground="White"
+                     Background="Black"/>
 
             <TextBlock
                 Height="30"
@@ -72,7 +75,8 @@
                 x:Name="TbExpiration"
                 Height="30"
                 FontSize="20"
-                Foreground="Black"/>
+               Foreground="White"
+                     Background="Black"/>
 
             <TextBlock Height="30"
                        Text="*Выберите тип товара"
@@ -84,11 +88,14 @@
             <ComboBox x:Name="CMBTypeProduct"
                       SelectedIndex="1"
                      Height="30"
-                     FontSize="20"                     
-                     Foreground="Black"/>
+                     FontSize="20"
+                      Foreground="White"
+                      Style="{DynamicResource ComboBoxStyle1}">
+            </ComboBox>
 
 
             <Button x:Name="BtnAdd"
+                    Style="{DynamicResource ButtonStyleRediusBlack}"
                     Height="50"
                     FontSize="20"
                     Width="200"

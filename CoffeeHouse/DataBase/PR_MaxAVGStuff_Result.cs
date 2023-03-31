@@ -19,5 +19,6 @@ namespace CoffeeHouse.DataBase
         public decimal Price { get; set; }
         public int Count { get; set; }
         public Nullable<int> ExpirationDate { get; set; }
+        public byte[] Image { get; set; }
     }
 }

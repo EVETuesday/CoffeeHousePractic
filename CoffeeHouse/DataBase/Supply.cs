@@ -17,7 +17,7 @@ namespace CoffeeHouse.DataBase
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Supply()
         {
-            this.Product = new HashSet<Product>();
+            this.ProductSupply = new HashSet<ProductSupply>();
         }
     
         public int IDSupply { get; set; }
@@ -25,8 +25,8 @@ namespace CoffeeHouse.DataBase
         public int IDSupplier { get; set; }
         public System.DateTime Date { get; set; }
     
-        public virtual Supplier Supplier { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Product> Product { get; set; }
+        public virtual ICollection<ProductSupply> ProductSupply { get; set; }
+        public virtual Supplier Supplier { get; set; }
     }
 }
