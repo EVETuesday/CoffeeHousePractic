@@ -39,6 +39,25 @@ namespace CoffeeHouse.Windows.Director
             DirectorFrame.Content = removeProductPage;
         }
 
+
+
+        public DefaultDirectorWindow(AddManagerPage addManagerPage)
+        {
+            InitializeComponent();
+            DirectorFrame.Content = addManagerPage;
+        }
+        public DefaultDirectorWindow(ChangeManagerPage changeManagerPage)
+        {
+            InitializeComponent();
+            DirectorFrame.Content = changeManagerPage;
+        }
+        public DefaultDirectorWindow(RemoveManagerPage removeManagerPage)
+        {
+            InitializeComponent();
+            DirectorFrame.Content = removeManagerPage;
+        }
+
+
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
             MainChoiseWindow mainChoiseWindow = new MainChoiseWindow();

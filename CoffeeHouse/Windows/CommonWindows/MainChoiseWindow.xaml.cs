@@ -45,10 +45,29 @@ namespace CoffeeHouse.Windows.CommonWindows
                     DefaultDirectorWindow defaultDirectorWindow3 = new DefaultDirectorWindow(new RemoveProductPage());
                     defaultDirectorWindow3.Show();
                     break;
+                case "Добавить нового сотрудника":
+                    DefaultDirectorWindow defaultDirectorWindow4 = new DefaultDirectorWindow(new AddManagerPage());
+                    defaultDirectorWindow4.Show();
+                    break;
+                case "Изменить сотрудника":
+                    DefaultDirectorWindow defaultDirectorWindow5 = new DefaultDirectorWindow(new ChangeManagerPage());
+                    defaultDirectorWindow5.Show();
+                    break;
+                case "Удалить сотрудника":
+                    DefaultDirectorWindow defaultDirectorWindow6 = new DefaultDirectorWindow(new RemoveManagerPage());
+                    defaultDirectorWindow6.Show();
+                    break;
                 default:
                     break;
             }
             Close();            
+        }
+
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            AutorizationWindow autorizationWindow = new AutorizationWindow();
+            autorizationWindow.Show();
+            Close();
         }
     }
 }

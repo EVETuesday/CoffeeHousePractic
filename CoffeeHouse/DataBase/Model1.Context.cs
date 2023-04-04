@@ -15,10 +15,10 @@ namespace CoffeeHouse.DataBase
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class Entities5 : DbContext
+    public partial class Entities6 : DbContext
     {
-        public Entities5()
-            : base("name=Entities5")
+        public Entities6()
+            : base("name=Entities6")
         {
         }
     
@@ -31,6 +31,7 @@ namespace CoffeeHouse.DataBase
         public virtual DbSet<Check> Check { get; set; }
         public virtual DbSet<Client> Client { get; set; }
         public virtual DbSet<EmloeeWorkShift> EmloeeWorkShift { get; set; }
+        public virtual DbSet<Emploee> Emploee { get; set; }
         public virtual DbSet<Gender> Gender { get; set; }
         public virtual DbSet<LevelDiscount> LevelDiscount { get; set; }
         public virtual DbSet<Login> Login { get; set; }
@@ -41,7 +42,6 @@ namespace CoffeeHouse.DataBase
         public virtual DbSet<Supply> Supply { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<WorkShift> WorkShift { get; set; }
-        public virtual DbSet<Emploee> Emploee { get; set; }
         public virtual DbSet<VW_AllProductInfo> VW_AllProductInfo { get; set; }
         public virtual DbSet<VW_CanMaxSale> VW_CanMaxSale { get; set; }
         public virtual DbSet<VW_LevelDiscountClient> VW_LevelDiscountClient { get; set; }

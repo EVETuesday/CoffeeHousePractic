@@ -33,5 +33,23 @@ namespace CoffeeHouse.Windows.CommonWindows
             ProductList = EFClass.Context.Product.ToList();
             LvProductList.ItemsSource= ProductList;
         }
+        private void GetProduct(string word)
+        {
+            List<Product> ProductList = new List<Product>();
+            ProductList = EFClass.Context.Product.ToList().Where(i=>i.Title.ToLower().Contains(word.ToLower())|| i.Price.ToString().ToLower().Contains(word.ToLower())).ToList();
+            LvProductList.ItemsSource = ProductList;
+        }
+
+        private void TbSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            GetProduct(TbSearch.Text);
+        }
+
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            AutorizationWindow autorizationWindow = new AutorizationWindow();
+            autorizationWindow.Show();
+            Close();
+        }
     }
 }

@@ -16,7 +16,9 @@ namespace CoffeeHouse.DataBase
     {
         public int IDEmploee { get; set; }
         public int IDWorkShift { get; set; }
+        public Nullable<System.DateTime> Date { get; set; }
     
+        public virtual Emploee Emploee { get; set; }
         public virtual WorkShift WorkShift { get; set; }
     }
 }

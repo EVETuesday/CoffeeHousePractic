@@ -10,9 +10,14 @@
 
     <Grid>
         <StackPanel>
+            <TextBox Margin="10 20 10 0"
+                     x:Name="TbSearch"
+                     Background="Black"
+                     Foreground="White"
+                     TextChanged="TbSearch_TextChanged"/>
             <DataGrid x:Name="DgListOfProduct"
                   Margin=" 10 10 10 0"
-                      Height="440"
+                      Height="400"
                       AutoGenerateColumns="False"
                       FontSize="8"
                       SelectedIndex="0"

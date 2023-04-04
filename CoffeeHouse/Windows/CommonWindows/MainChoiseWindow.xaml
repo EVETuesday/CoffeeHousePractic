@@ -14,12 +14,20 @@
             <ImageBrush ImageSource="/Resourses/Images/PngFormat/a5d152a89457eaf0d0f056d1152980a9.png"/>
         </Grid.Background>
 
-
+        <Button x:Name="btnBack"
+                Height="20"
+                Content=">"
+                FontSize="10"
+                Padding="0 0 0 1"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Right"
+                Margin="10"
+                Background="Black"
+                BorderBrush="#FF790303"
+                Foreground="White"
+                Click="btnBack_Click" Width="20"/>
+        <StackPanel>
         <StackPanel Margin="60 50 60 0">
-
-
-
-
 
             <Button Style="{DynamicResource ButtonStyleRedius}"
                     x:Name="BtnAddProduct"
@@ -60,6 +68,50 @@
                     BorderThickness="1"
                     BorderBrush="White"
                     Click="BtnClick"/>
+        </StackPanel>
+            <StackPanel Margin="60 50 60 0">
+            <Button Style="{DynamicResource ButtonStyleRedius}"
+                    x:Name="BtnAddEmployee"
+                    Height="50"
+                    Margin="30 30 30 0"
+                    Background="Black"
+                    Content="Добавить нового сотрудника"
+                    FontSize="15"
+                    Foreground="White"
+                    FontWeight="Bold"
+                    BorderThickness="1"
+                    BorderBrush="White"
+                    
+                    Click="BtnClick"/>
+
+            <Button Style="{DynamicResource ButtonStyleRedius}"
+                    x:Name="BtnChangeEmployee"
+                    Height="50"
+                    Margin="30 30 30 0"
+                    Background="Black"
+                    Content="Изменить сотрудника"
+                    FontSize="15"
+                    Foreground="White"
+                    FontWeight="Bold"
+                    BorderThickness="1"
+                    BorderBrush="White"
+                    Click="BtnClick"/>
+
+            <Button Style="{DynamicResource ButtonStyleRedius}"
+                    x:Name="BtnDellEmployee"
+                    Height="50"
+                    Margin="30 30 30 0"
+                    Background="Black"
+                    Content="Удалить сотрудника"
+                    FontSize="15"
+                    Foreground="White"
+                    FontWeight="Bold"
+                    BorderThickness="1"
+                    BorderBrush="White"
+                    Click="BtnClick"/>
+        </StackPanel >
+
+
         </StackPanel>
 
 

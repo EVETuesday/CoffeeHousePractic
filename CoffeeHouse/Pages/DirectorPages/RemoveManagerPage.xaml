@@ -5,10 +5,41 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CoffeeHouse.Pages.DirectorPages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="700" d:DesignWidth="400"
       Title="RemoveManagerPage">
 
     <Grid>
-        
+        <StackPanel>
+            <TextBox Margin="10 0 10 0"
+                     x:Name="TbSearch"
+                     Background="Black"
+                     Foreground="White"
+                     TextChanged="TbSearch_TextChanged"/>
+            <DataGrid x:Name="DgListOfProduct"
+                  Margin=" 10 10 10 0"
+                      Height="490"
+                      AutoGenerateColumns="False"
+                      FontSize="8"
+                      SelectedIndex="0">
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ФИО" Binding="{Binding FullName}"/>
+                    <DataGridTextColumn Header="Телефон" Binding="{Binding Phone}"/>
+                    <DataGridTextColumn Header="Email" Binding="{Binding Email}"/>
+                    <DataGridTextColumn Header="Дата рождения" Binding="{Binding Birthday}"/>
+                    <DataGridTextColumn Header="Пол" Binding="{Binding Gender.Gender1}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+
+
+
+            <Button x:Name="btnSave"
+                    Margin="30 5 30 0"
+                    Height="40"
+                    Style="{DynamicResource ButtonStyleRediusBlack}"
+                    Content="Удалить сотрудника" Click="btnRemove_Click"/>
+        </StackPanel>
+
     </Grid>
 </Page>

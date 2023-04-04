@@ -70,10 +70,18 @@ namespace CoffeeHouse.Pages.CommonPages
 
                 Client.Email = TbEmail.Text;
             }
-            if (!string.IsNullOrEmpty(DpBirthday.SelectedDate.Value.ToString()))
+            try
             {
-                Client.Birthday = DpBirthday.SelectedDate.Value;
+                if (!string.IsNullOrEmpty(DpBirthday.SelectedDate.Value.ToString()))
+                {
+                    Client.Birthday = DpBirthday.SelectedDate.Value;
+                }
             }
+            catch
+            {
+                Client.Birthday= null;
+            }
+            
             Client.IDLevelDiscount = 1;
             Client.Score = 0;
             Client.Phone= TbPhone.Text;

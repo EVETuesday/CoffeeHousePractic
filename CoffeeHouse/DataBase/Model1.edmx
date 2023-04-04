@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Хранилище CoffeeHouseModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Хранилище CoffeeHouseModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="IDCategory" />
@@ -43,19 +43,11 @@
           </Key>
           <Property Name="IDEmploee" Type="int" Nullable="false" />
           <Property Name="IDWorkShift" Type="int" Nullable="false" />
+          <Property Name="Date" Type="datetime" />
         </EntityType>
-        <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "CoffeeHouse.dbo.Emploee" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="Emploee">
           <Key>
             <PropertyRef Name="IDEmploee" />
-            <PropertyRef Name="FullName" />
-            <PropertyRef Name="Phone" />
-            <PropertyRef Name="IDGender" />
-            <PropertyRef Name="Birthday" />
-            <PropertyRef Name="Email" />
-            <PropertyRef Name="PersonalCode" />
-            <PropertyRef Name="IDLogin" />
           </Key>
           <Property Name="IDEmploee" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FullName" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -118,6 +110,7 @@
           </Key>
           <Property Name="IDSupply" Type="int" Nullable="false" />
           <Property Name="IDProduct" Type="int" Nullable="false" />
+          <Property Name="Date" Type="datetime" />
         </EntityType>
         <EntityType Name="Supplier">
           <Key>
@@ -277,6 +270,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_EmloeeWorkShift_Emploee">
+          <End Role="Emploee" Type="Self.Emploee" Multiplicity="1" />
+          <End Role="EmloeeWorkShift" Type="Self.EmloeeWorkShift" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Emploee">
+              <PropertyRef Name="IDEmploee" />
+            </Principal>
+            <Dependent Role="EmloeeWorkShift">
+              <PropertyRef Name="IDEmploee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_EmloeeWorkShift_WorkShift">
           <End Role="WorkShift" Type="Self.WorkShift" Multiplicity="1" />
           <End Role="EmloeeWorkShift" Type="Self.EmloeeWorkShift" Multiplicity="*" />
@@ -429,6 +434,7 @@
           <EntitySet Name="Check" EntityType="Self.Check" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmloeeWorkShift" EntityType="Self.EmloeeWorkShift" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Emploee" EntityType="Self.Emploee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Gender" EntityType="Self.Gender" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LevelDiscount" EntityType="Self.LevelDiscount" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Login" EntityType="Self.Login" Schema="dbo" store:Type="Tables" />
@@ -439,18 +445,6 @@
           <EntitySet Name="Supply" EntityType="Self.Supply" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WorkShift" EntityType="Self.WorkShift" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Emploee" EntityType="Self.Emploee" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Emploee].[IDEmploee] AS [IDEmploee], 
-    [Emploee].[FullName] AS [FullName], 
-    [Emploee].[Phone] AS [Phone], 
-    [Emploee].[IDGender] AS [IDGender], 
-    [Emploee].[Birthday] AS [Birthday], 
-    [Emploee].[Email] AS [Email], 
-    [Emploee].[PersonalCode] AS [PersonalCode], 
-    [Emploee].[IDLogin] AS [IDLogin]
-    FROM [dbo].[Emploee] AS [Emploee]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="VW_AllProductInfo" EntityType="Self.VW_AllProductInfo" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [VW_AllProductInfo].[Наименование] AS [Наименование], 
@@ -512,6 +506,10 @@
             <End Role="Login" EntitySet="Login" />
             <End Role="Client" EntitySet="Client" />
           </AssociationSet>
+          <AssociationSet Name="FK_EmloeeWorkShift_Emploee" Association="Self.FK_EmloeeWorkShift_Emploee">
+            <End Role="Emploee" EntitySet="Emploee" />
+            <End Role="EmloeeWorkShift" EntitySet="EmloeeWorkShift" />
+          </AssociationSet>
           <AssociationSet Name="FK_EmloeeWorkShift_WorkShift" Association="Self.FK_EmloeeWorkShift_WorkShift">
             <End Role="WorkShift" EntitySet="WorkShift" />
             <End Role="EmloeeWorkShift" EntitySet="EmloeeWorkShift" />
@@ -549,7 +547,8 @@
             <End Role="Supply" EntitySet="Supply" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CoffeeHouseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -598,7 +597,25 @@
           </Key>
           <Property Name="IDEmploee" Type="Int32" Nullable="false" />
           <Property Name="IDWorkShift" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Emploee" Relationship="Self.FK_EmloeeWorkShift_Emploee" FromRole="EmloeeWorkShift" ToRole="Emploee" />
           <NavigationProperty Name="WorkShift" Relationship="Self.FK_EmloeeWorkShift_WorkShift" FromRole="EmloeeWorkShift" ToRole="WorkShift" />
+        </EntityType>
+        <EntityType Name="Emploee">
+          <Key>
+            <PropertyRef Name="IDEmploee" />
+          </Key>
+          <Property Name="IDEmploee" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="12" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="IDGender" Type="Int32" Nullable="false" />
+          <Property Name="Birthday" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PersonalCode" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IDLogin" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="EmloeeWorkShift" Relationship="Self.FK_EmloeeWorkShift_Emploee" FromRole="Emploee" ToRole="EmloeeWorkShift" />
+          <NavigationProperty Name="Gender" Relationship="Self.FK_Emploee_Gender" FromRole="Emploee" ToRole="Gender" />
+          <NavigationProperty Name="Login" Relationship="Self.FK_Emploee_Login" FromRole="Emploee" ToRole="Login" />
         </EntityType>
         <EntityType Name="Gender">
           <Key>
@@ -662,6 +679,7 @@
           </Key>
           <Property Name="IDSupply" Type="Int32" Nullable="false" />
           <Property Name="IDProduct" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Product" Relationship="Self.FK_ProductSupply_Product" FromRole="ProductSupply" ToRole="Product" />
           <NavigationProperty Name="Supply" Relationship="Self.FK_ProductSupply_Supply" FromRole="ProductSupply" ToRole="Supply" />
         </EntityType>
@@ -704,28 +722,6 @@
           <Property Name="StartTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="EndTime" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="EmloeeWorkShift" Relationship="Self.FK_EmloeeWorkShift_WorkShift" FromRole="WorkShift" ToRole="EmloeeWorkShift" />
-        </EntityType>
-        <EntityType Name="Emploee">
-          <Key>
-            <PropertyRef Name="IDEmploee" />
-            <PropertyRef Name="FullName" />
-            <PropertyRef Name="Phone" />
-            <PropertyRef Name="IDGender" />
-            <PropertyRef Name="Birthday" />
-            <PropertyRef Name="Email" />
-            <PropertyRef Name="PersonalCode" />
-            <PropertyRef Name="IDLogin" />
-          </Key>
-          <Property Name="IDEmploee" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Phone" Type="String" MaxLength="12" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="IDGender" Type="Int32" Nullable="false" />
-          <Property Name="Birthday" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PersonalCode" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="IDLogin" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Gender" Relationship="Self.FK_Emploee_Gender" FromRole="Emploee" ToRole="Gender" />
-          <NavigationProperty Name="Login" Relationship="Self.FK_Emploee_Login" FromRole="Emploee" ToRole="Login" />
         </EntityType>
         <EntityType Name="VW_AllProductInfo">
           <Key>
@@ -863,6 +859,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_EmloeeWorkShift_Emploee">
+          <End Role="Emploee" Type="Self.Emploee" Multiplicity="1" />
+          <End Role="EmloeeWorkShift" Type="Self.EmloeeWorkShift" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Emploee">
+              <PropertyRef Name="IDEmploee" />
+            </Principal>
+            <Dependent Role="EmloeeWorkShift">
+              <PropertyRef Name="IDEmploee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_EmloeeWorkShift_WorkShift">
           <End Role="WorkShift" Type="Self.WorkShift" Multiplicity="1" />
           <End Role="EmloeeWorkShift" Type="Self.EmloeeWorkShift" Multiplicity="*" />
@@ -947,11 +955,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Entities5" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="Entities6" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Category" EntityType="Self.Category" />
           <EntitySet Name="Check" EntityType="Self.Check" />
           <EntitySet Name="Client" EntityType="Self.Client" />
           <EntitySet Name="EmloeeWorkShift" EntityType="Self.EmloeeWorkShift" />
+          <EntitySet Name="Emploee" EntityType="Self.Emploee" />
           <EntitySet Name="Gender" EntityType="Self.Gender" />
           <EntitySet Name="LevelDiscount" EntityType="Self.LevelDiscount" />
           <EntitySet Name="Login" EntityType="Self.Login" />
@@ -962,7 +971,6 @@
           <EntitySet Name="Supply" EntityType="Self.Supply" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="WorkShift" EntityType="Self.WorkShift" />
-          <EntitySet Name="Emploee" EntityType="Self.Emploee" />
           <EntitySet Name="VW_AllProductInfo" EntityType="Self.VW_AllProductInfo" />
           <EntitySet Name="VW_CanMaxSale" EntityType="Self.VW_CanMaxSale" />
           <EntitySet Name="VW_LevelDiscountClient" EntityType="Self.VW_LevelDiscountClient" />
@@ -991,6 +999,10 @@
           <AssociationSet Name="FK_Client_Login" Association="Self.FK_Client_Login">
             <End Role="Login" EntitySet="Login" />
             <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmloeeWorkShift_Emploee" Association="Self.FK_EmloeeWorkShift_Emploee">
+            <End Role="Emploee" EntitySet="Emploee" />
+            <End Role="EmloeeWorkShift" EntitySet="EmloeeWorkShift" />
           </AssociationSet>
           <AssociationSet Name="FK_EmloeeWorkShift_WorkShift" Association="Self.FK_EmloeeWorkShift_WorkShift">
             <End Role="WorkShift" EntitySet="WorkShift" />
@@ -1098,7 +1110,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище CoffeeHouseModelContainer" CdmEntityContainer="Entities5">
+        <EntityContainerMapping StorageEntityContainer="Хранилище CoffeeHouseModelContainer" CdmEntityContainer="Entities6">
           <EntitySetMapping Name="Category">
             <EntityTypeMapping TypeName="CoffeeHouseModel.Category">
               <MappingFragment StoreEntitySet="Category">
@@ -1138,6 +1150,21 @@
               <MappingFragment StoreEntitySet="EmloeeWorkShift">
                 <ScalarProperty Name="IDEmploee" ColumnName="IDEmploee" />
                 <ScalarProperty Name="IDWorkShift" ColumnName="IDWorkShift" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Emploee">
+            <EntityTypeMapping TypeName="CoffeeHouseModel.Emploee">
+              <MappingFragment StoreEntitySet="Emploee">
+                <ScalarProperty Name="IDEmploee" ColumnName="IDEmploee" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="IDGender" ColumnName="IDGender" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PersonalCode" ColumnName="PersonalCode" />
+                <ScalarProperty Name="IDLogin" ColumnName="IDLogin" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1196,6 +1223,7 @@
               <MappingFragment StoreEntitySet="ProductSupply">
                 <ScalarProperty Name="IDSupply" ColumnName="IDSupply" />
                 <ScalarProperty Name="IDProduct" ColumnName="IDProduct" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1236,20 +1264,6 @@
                 <ScalarProperty Name="WorkShift1" ColumnName="WorkShift" />
                 <ScalarProperty Name="StartTime" ColumnName="StartTime" />
                 <ScalarProperty Name="EndTime" ColumnName="EndTime" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Emploee">
-            <EntityTypeMapping TypeName="CoffeeHouseModel.Emploee">
-              <MappingFragment StoreEntitySet="Emploee">
-                <ScalarProperty Name="IDEmploee" ColumnName="IDEmploee" />
-                <ScalarProperty Name="FullName" ColumnName="FullName" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="IDGender" ColumnName="IDGender" />
-                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="PersonalCode" ColumnName="PersonalCode" />
-                <ScalarProperty Name="IDLogin" ColumnName="IDLogin" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

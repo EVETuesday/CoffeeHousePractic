@@ -16,6 +16,7 @@ namespace CoffeeHouse.DataBase
     {
         public int IDSupply { get; set; }
         public int IDProduct { get; set; }
+        public Nullable<System.DateTime> Date { get; set; }
     
         public virtual Product Product { get; set; }
         public virtual Supply Supply { get; set; }

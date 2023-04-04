@@ -5,10 +5,111 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CoffeeHouse.Pagess.DirectorPages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="700" d:DesignWidth="400"
       Title="ChangeManagerPage">
 
     <Grid>
-        
+        <StackPanel>
+            <TextBox Margin="10 0 10 0"
+                     x:Name="TbSearch"
+                     Background="Black"
+                     Foreground="White"
+                     TextChanged="TbSearch_TextChanged"/>
+            <DataGrid x:Name="DgListOfProduct"
+                  Margin=" 10 10 10 0"
+                      Height="400"
+                      AutoGenerateColumns="False"
+                      FontSize="8"
+                      SelectedIndex="0"
+                      SelectionChanged="DgListOfProduct_SelectionChanged">
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ФИО" Binding="{Binding FullName}"/>
+                    <DataGridTextColumn Header="Телефон" Binding="{Binding Phone}"/>
+                    <DataGridTextColumn Header="Email" Binding="{Binding Email}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <StackPanel Orientation="Horizontal"
+                        Margin="10">
+                <StackPanel
+                    HorizontalAlignment="Right"
+                    Margin="10 0 0 0"
+                            Width="180">
+                    <TextBlock Text="Пол"
+                               Background="Black"
+                               Foreground="White"
+                               Margin="0 20 0 0"
+                               FontSize="10"
+                               TextAlignment="Left"/>
+                    <ComboBox x:Name="cmbGender"
+                              Foreground="White"
+                              Style="{DynamicResource ComboBoxStyle1}"
+                        Margin="0 10 0 0"/>
+                </StackPanel>
+                <StackPanel
+                    HorizontalAlignment="Right"
+                    Margin="20 0 0 0"
+                            Width="180">
+                    <TextBlock Text="Дата рождения"
+                               Background="Black"
+                               Foreground="White"
+                               Margin="0 20 0 0"
+                               FontSize="10"
+                               TextAlignment="Left"/>
+                    <DatePicker x:Name="dpBirthday"
+                              Foreground="Black"
+                        Margin="0 10 0 0"/>
+                </StackPanel>
+                
+                
+                
+                
+
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                        Margin="10 0 10 0">
+                <StackPanel
+                    HorizontalAlignment="Right"
+                    Margin="10 0 0 0"
+                            Width="180">
+                    <TextBlock Text="Логин"
+                               Background="Black"
+                               Foreground="White"
+                               Margin="0 20 0 0"
+                               FontSize="10"
+                               TextAlignment="Left"/>
+                    <TextBox x:Name="tbLogin"
+                              Foreground="White"
+                              Style="{DynamicResource ComboBoxEditableTextBox}"
+                        Margin="0 10 0 0"/>
+                </StackPanel>
+                <StackPanel
+                    HorizontalAlignment="Right"
+                    Margin="20 0 0 0"
+                            Width="180">
+                    <TextBlock Text="Пароль"
+                               Background="Black"
+                               Foreground="White"
+                               Margin="0 20 0 0"
+                               FontSize="10"
+                               TextAlignment="Left"/>
+                    <TextBox x:Name="tbPassword"
+                              Foreground="White"
+                              Style="{DynamicResource ComboBoxEditableTextBox}"
+                        Margin="0 10 0 0"/>
+                </StackPanel>
+
+
+
+
+
+            </StackPanel>
+            <Button x:Name="btnSave"
+                    Margin="30 5 30 0"
+                    Height="40"
+                    Style="{DynamicResource ButtonStyleRediusBlack}"
+                    Content="Сохранить изменения в выбраном сотруднике" Click="btnSave_Click"/>
+        </StackPanel>
+
     </Grid>
 </Page>

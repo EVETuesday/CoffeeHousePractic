@@ -14,6 +14,12 @@ namespace CoffeeHouse.DataBase
     
     public partial class Emploee
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Emploee()
+        {
+            this.EmloeeWorkShift = new HashSet<EmloeeWorkShift>();
+        }
+    
         public int IDEmploee { get; set; }
         public string FullName { get; set; }
         public string Phone { get; set; }
@@ -23,6 +29,8 @@ namespace CoffeeHouse.DataBase
         public string PersonalCode { get; set; }
         public int IDLogin { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EmloeeWorkShift> EmloeeWorkShift { get; set; }
         public virtual Gender Gender { get; set; }
         public virtual Login Login { get; set; }
     }

@@ -1,6 +1,8 @@
-﻿using System;
+﻿using CoffeeHouse.ClassHelper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static CoffeeHouse.ClassHelper.EFClass;
 
 namespace CoffeeHouse.Pages.DirectorPages
 {
@@ -20,9 +23,85 @@ namespace CoffeeHouse.Pages.DirectorPages
     /// </summary>
     public partial class AddManagerPage : Page
     {
+        Random rnd = new Random();
+        string tbWord;
         public AddManagerPage()
         {
             InitializeComponent();
+            CbGender.SelectedIndex = 0;
+            CbGender.ItemsSource = EFClass.Context.Gender.ToList();
+            CbGender.DisplayMemberPath = "Gender1";
+        }
+        private void BtnGo_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(TbLogin.Text) || string.IsNullOrEmpty(TbPassword.Text) || string.IsNullOrEmpty(TbName.Text) || string.IsNullOrEmpty(TbPasswordAgain.Text) || string.IsNullOrEmpty(TbPhone.Text)
+                || TbLogin.Text == "Login" || TbName.Text == "Name" || TbPassword.Text == "Password" || TbPasswordAgain.Text == "PasswordAgain" || TbPhone.Text == "89000000000")
+            {
+                MessageBox.Show("Все поля с * должны быть заполненными");
+                return;
+            }
+            if (TbPassword.Text != TbPasswordAgain.Text)
+            {
+                MessageBox.Show("Пароли должны совпадать");
+                return;
+            }
+
+            var OneClient = EFClass.Context.Login.ToList().Where(i => i.Login1 == TbLogin.Text).FirstOrDefault();
+            if (OneClient != null)
+            {
+                MessageBox.Show("Логин занят");
+                return;
+            }
+            DataBase.Login login = new DataBase.Login();
+            login.Login1 = TbLogin.Text;
+            login.Password = TbPassword.Text;
+            login.IsEmploee = true;
+
+            DataBase.Emploee emploee = new DataBase.Emploee();
+            emploee.FullName = TbName.Text;
+            emploee.IDGender = (CbGender.SelectedItem as DataBase.Gender).IDGender;
+            if (!string.IsNullOrEmpty(TbEmail.Text))
+            {
+
+                emploee.Email = TbEmail.Text;
+            }
+            try
+            {
+                if (!string.IsNullOrEmpty(DpBirthday.SelectedDate.Value.ToString()))
+                {
+                    emploee.Birthday = DpBirthday.SelectedDate.Value;
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Все поля с * должны быть заполненными");
+                return;
+            }
+            emploee.Phone = TbPhone.Text;
+            emploee.PersonalCode = rnd.Next(100000, 999999).ToString();
+            EFClass.Context.Emploee.Add(emploee);
+            EFClass.Context.Login.Add(login);
+            EFClass.Context.SaveChanges();
+            MessageBox.Show("Сотрудник добавлен");
+
+        }
+        private void TbGotFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox a = sender as TextBox;
+            tbWord = a.Text;
+            if (a.Text == "Login" || a.Text == "Name" || a.Text == "Password" || a.Text == "PasswordAgain" || a.Text == "89000000000" || a.Text == "Email@Gmail.com")
+            {
+                a.Text = "";
+            }
+        }
+
+        private void TbLostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox a = sender as TextBox;
+            if (a.Text == "")
+            {
+                a.Text = tbWord;
+            }
         }
     }
 }

@@ -34,6 +34,10 @@ namespace CoffeeHouse.Pages.DirectorPages
         {
             DgListOfProduct.ItemsSource = EFClass.Context.Product.ToList();
         }
+        void GetProductList(string word)
+        {
+            DgListOfProduct.ItemsSource = EFClass.Context.Product.ToList().Where(i=>i.Title.ToLower().Contains(word.ToLower())|| i.Price.ToString().ToLower().Contains(word.ToLower()));
+        }
 
         private void DgListOfProduct_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -97,6 +101,11 @@ namespace CoffeeHouse.Pages.DirectorPages
                 }
                 GetProductList();
             }
+        }
+
+        private void TbSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            GetProductList(TbSearch.Text);
         }
     }
 }
