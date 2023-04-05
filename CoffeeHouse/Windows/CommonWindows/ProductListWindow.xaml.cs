@@ -36,7 +36,14 @@ namespace CoffeeHouse.Windows.CommonWindows
         private void GetProduct(string word)
         {
             List<Product> ProductList = new List<Product>();
-            ProductList = EFClass.Context.Product.ToList().Where(i=>i.Title.ToLower().Contains(word.ToLower())|| i.Price.ToString().ToLower().Contains(word.ToLower())).ToList();
+            if ((Context.Category.ToList().Where(j => j.Title.ToLower().Contains(word.ToLower())).ToList().FirstOrDefault()) != null)
+            {
+                ProductList = Context.Product.ToList().Where(i => i.Title.ToLower().Contains(word.ToLower()) || i.Price.ToString().Contains(word.ToLower()) || i.IDCategory.ToString() == (Context.Category.ToList().Where(j => j.Title.ToLower().Contains(word.ToLower())).ToList().FirstOrDefault().IDCategory.ToString())).ToList();
+            }
+            else
+            {
+                ProductList = Context.Product.ToList().Where(i => i.Title.ToLower().Contains(word.ToLower()) || i.Price.ToString().Contains(word.ToLower())).ToList();
+            }
             LvProductList.ItemsSource = ProductList;
         }
 

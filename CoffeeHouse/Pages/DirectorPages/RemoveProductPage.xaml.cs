@@ -36,7 +36,14 @@ namespace CoffeeHouse.Pages.DirectorPages
         }
         void GetProductList(string word)
         {
-            DgListOfProduct.ItemsSource = EFClass.Context.Product.ToList().Where(i=>i.Title.ToLower().Contains(word.ToLower())|| i.Price.ToString().ToLower().Contains(word.ToLower()));
+            if ((EFClass.Context.Category.ToList().Where(j => j.Title.ToLower().Contains(word.ToLower())).ToList().FirstOrDefault()) != null)
+            {
+                DgListOfProduct.ItemsSource = EFClass.Context.Product.ToList().Where(i => i.Title.ToLower().Contains(word.ToLower()) || i.Price.ToString().Contains(word.ToLower()) || i.IDCategory.ToString() == (EFClass.Context.Category.ToList().Where(j => j.Title.ToLower().Contains(word.ToLower())).ToList().FirstOrDefault().IDCategory.ToString()));
+            }
+            else
+            {
+                DgListOfProduct.ItemsSource = EFClass.Context.Product.ToList().Where(i => i.Title.ToLower().Contains(word.ToLower()) || i.Price.ToString().Contains(word.ToLower()));
+            }
         }
 
         private void DgListOfProduct_SelectionChanged(object sender, SelectionChangedEventArgs e)
