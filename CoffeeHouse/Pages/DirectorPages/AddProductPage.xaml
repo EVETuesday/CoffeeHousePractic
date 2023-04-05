@@ -64,7 +64,7 @@
 
             <TextBlock
                 Height="30"
-                FontSize="20"
+                FontSize="18"
                 TextAlignment="Left"
                 Foreground="White"
                 Text="Введите Срок годности товара"
