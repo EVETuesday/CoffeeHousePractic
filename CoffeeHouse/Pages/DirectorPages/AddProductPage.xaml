@@ -89,7 +89,7 @@
                       SelectedIndex="1"
                      Height="30"
                      FontSize="20"
-                      Foreground="White"
+                      Foreground="Gray"
                       Style="{DynamicResource ComboBoxStyle1}">
             </ComboBox>
 

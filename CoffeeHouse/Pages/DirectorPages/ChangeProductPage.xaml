@@ -56,7 +56,7 @@
                                FontSize="10"
                                TextAlignment="Left"/>
                     <ComboBox x:Name="cmbCategory"
-                              Foreground="White"
+                              Foreground="Gray"
                               Style="{DynamicResource ComboBoxStyle1}"
                         Margin="0 10 0 0"/>
                 </StackPanel>
